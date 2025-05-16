@@ -88,3 +88,6 @@ server/locale/
 # OS specific
 .DS_Store
 Thumbs.db
+
+# Raw templates
+base_templates/
