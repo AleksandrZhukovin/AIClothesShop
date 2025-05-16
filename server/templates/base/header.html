@@ -5,9 +5,9 @@
       <div class="row">
         <div class="col-md-12 text-center"><a class="brand" href="{% url 'index' %}"><img class="default" src="{% static 'img/logo.svg' %}"><img class="white" src="{% static 'img/logo-white.svg' %}"></a>
           <ul class="main-nav">
-            <li><a class="active" href="{% url 'index' %}" title="Work">Main</a>
+            <li><a {% if request.resolver_match.view_name == 'index' %}class="active"{% endif %} href="{% url 'index' %}" title="Work">Main</a>
             </li>
-            <li><a href="{% url 'catalog:index' %}" title="About">Catalog</a>
+            <li><a {% if request.resolver_match.namespace  == 'catalog' %}class="active"{% endif %} href="{% url 'catalog:index' %}" title="About">Catalog</a>
             </li>
             <li><a href="blog.html" title="Blog">Blog</a>
             </li>
