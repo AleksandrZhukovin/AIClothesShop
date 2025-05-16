@@ -1,0 +1,81 @@
+{% extends 'base/base.html' %}
+
+{% load i18n %}
+{% load static %}
+
+{% block content %}
+    <div class="text-center intro">
+      <h1 class="typed"></h1>
+    </div>
+
+    <div id="portfolioCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+        <div class="carousel-inner">
+            <div class="carousel-item active" style="background-image: url('{% static "img/portfolio/red-book.jpg" %}'); background-size: cover; background-position: center; height: 100vh;">
+              <div class="vcenter text-center text-white">
+                <div class="container">
+                  <h1>{% translate 'Inside' %}</h1>
+                  <p>{% translate 'The lives of addicts' %}</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('{% static "img/portfolio/face-side.jpg" %}'); background-size: cover; background-position: center; height: 100vh;">
+              <div class="vcenter text-center text-white">
+                <div class="container">
+                  <h1>{% translate 'Side project' %}</h1>
+                  <p>{% translate 'Portrait studies' %}</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item" style="background-image: url('{% static "img/portfolio/face-front.jpg" %}'); background-size: cover; background-position: center; height: 100vh;">
+              <div class="vcenter text-center text-white">
+                <div class="container">
+                  <h1>{% translate 'The Frontend' %}</h1>
+                  <p>{% translate 'A creative process' %}</p>
+                </div>
+              </div>
+            </div>
+        </div>
+
+        <button class="carousel-control-prev" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+        <span class="visually-hidden">{% translate 'Previous' %}</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#portfolioCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+        <span class="visually-hidden">{% translate 'Next' %}</span>
+        </button>
+    </div>
+
+    <section>
+        <div class="container-fluid content">
+            <a class="fadein blog-item" href="blog-single.html">
+                <h2>{% translate 'Beautiful gray' %}</h2>
+                <img alt="{% translate 'Ben Template - By ThemeVillain' %}" src="{% static 'img/portfolio/2.png' %}">
+                <div class="info">
+                    <div class="author">{% translate 'By' %} Ben Bryden {% translate 'on' %} {% translate 'November 27, 2020' %}</div>
+                    <div class="tag">{% translate 'Design, Photography' %}</div>
+                </div>
+            </a>
+            <a class="fadein blog-item" href="blog-single.html">
+                <h2>{% translate 'The other side of design' %}</h2>
+                <img alt="{% translate 'Ben Template - By ThemeVillain' %}" src="{% static 'img/portfolio/face-side.jpg' %}">
+                <div class="info">
+                    <div class="author">{% translate 'By' %} Ben Bryden {% translate 'on' %} {% translate 'November 27, 2020' %}</div>
+                    <div class="tag">{% translate 'Productivity, Health' %}</div>
+                </div>
+            </a>
+            <a class="fadein blog-item" href="blog-single.html">
+                <h2>{% translate 'Practice more and be crazy' %}</h2>
+                <img alt="{% translate 'Ben Template - By ThemeVillain' %}" src="{% static 'img/portfolio/logo-a.jpg' %}">
+                <div class="info">
+                    <div class="author">{% translate 'By' %} Ben Bryden {% translate 'on' %} {% translate 'November 27, 2020' %}</div>
+                    <div class="tag">{% translate 'Productivity, Creativity' %}</div>
+                </div>
+            </a>
+        </div>
+      </section>
+{% endblock %}
+
+{% block scripts %}
+    <script>if(document.querySelector('.typed')) var typed = new Typed('.typed', { strings: ['', "{% translate 'Привіт' %}", "{% translate 'Hello' %}", "{% translate 'Bonjour' %}", "{% translate 'Ciao' %}", "{% translate 'Hola' %}"], typeSpeed: 130, loop: true });</script>
+{% endblock %}
