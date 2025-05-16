@@ -1,0 +1,91 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-05-14 10:57+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: uk\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n % 1 == 0 && n % 10 == 1 && n % 100 != "
+"11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
+"100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
+"(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
+#: .\server\apps\cover\templates\cover\index.html:16
+msgid "Inside"
+msgstr "Всередині"
+
+msgid "The lives of addicts"
+msgstr "Життя залежних"
+
+msgid "Side project"
+msgstr "Сторонній проект"
+
+msgid "Portrait studies"
+msgstr "Портретні дослідження"
+
+msgid "The Frontend"
+msgstr "Фронтенд"
+
+msgid "A creative process"
+msgstr "Творчий процес"
+
+msgid "Previous"
+msgstr "Попередній"
+
+msgid "Next"
+msgstr "Наступний"
+
+msgid "Beautiful gray"
+msgstr "Красивий сірий"
+
+msgid "Ben Template - By ThemeVillain"
+msgstr "Шаблон Ben - від ThemeVillain"
+
+msgid "By"
+msgstr "Автор"
+
+msgid "on"
+msgstr "від"
+
+msgid "November 27, 2020"
+msgstr "27 листопада 2020"
+
+msgid "Design, Photography"
+msgstr "Дизайн, Фотографія"
+
+msgid "The other side of design"
+msgstr "Інша сторона дизайну"
+
+msgid "Productivity, Health"
+msgstr "Продуктивність, Здоров'я"
+
+msgid "Practice more and be crazy"
+msgstr "Практикуйтесь більше і будьте божевільними"
+
+msgid "Productivity, Creativity"
+msgstr "Продуктивність, Креативність"
+
+msgid "Привіт"
+msgstr "Привіт"
+
+msgid "Hello"
+msgstr "Привіт"
+
+msgid "Bonjour"
+msgstr "Привіт"
+
+msgid "Ciao"
+msgstr "Привіт"
+
+msgid "Hola"
+msgstr "Привіт"

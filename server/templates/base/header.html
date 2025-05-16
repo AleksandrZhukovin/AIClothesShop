@@ -1,0 +1,20 @@
+{% load static %}
+
+<header>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 text-center"><a class="brand" href="{% url 'index' %}"><img class="default" src="{% static 'img/logo.svg' %}"><img class="white" src="{% static 'img/logo-white.svg' %}"></a>
+          <ul class="main-nav">
+            <li><a class="active" href="{% url 'index' %}" title="Work">Main</a>
+            </li>
+            <li><a href="{% url 'catalog:index' %}" title="About">Catalog</a>
+            </li>
+            <li><a href="blog.html" title="Blog">Blog</a>
+            </li>
+            <li><a href="contact.html" title="Contact">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+</header>

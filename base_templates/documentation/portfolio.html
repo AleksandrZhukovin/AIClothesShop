@@ -1,0 +1,42 @@
+<!DOCTYPE html><html lang="en"><head><title> - Responsive HTML5 Portfolio Template</title><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta charset="utf-8"><meta name="format-detection" content="telephone=no"><link rel="stylesheet" type="text/css" href="css/core.css"><link rel="stylesheet" type="text/css" href="css/elements.css"><link rel="stylesheet" type="text/css" href="css/custom.css"><link rel="icon" type="image/png" href="favicon.png?version=4"></head><body class="preload"><main id="main"><div class="container-fluid"><header><div class="container-fluid"><div class="row"><div class="col-md-12 text-center"><a class="brand" href="index.html"><img class="default" src="img/logo.svg"><img class="white" src="img/logo-white.svg"></a><ul class="main-nav"><li><a href="undefinedindex.html">Index</a></li><li><a href="undefinedget-started.html">Get started</a></li><li><a href="undefinedtemplate-structure.html">Template Structure</a></li><li><a href="undefinedportfolio.html">Portfolio</a></li><li><a href="undefinedtera-lightbox.html">Tera Lightbox</a></li><li><a href="undefinedtitan-slider.html">Titan Slider</a></li><li><a href="undefinedcheat-sheet.html">Cheatsheet</a></li></ul></div></div></div></header><section class="intro fadein"><div class="container mb-xl"><div class="row"><div class="col-md-10"><h1>Portfolio</h1><p>A look inside.</p></div></div></div></section><section class="content"><div class="container"><div class="row"><div class="col-md-5"><h2>The grid portfolio</h2><p>The grid container is a div element that always holds the '.grid-portfolio' class. <br>Within, there's a '.grid-images' element.</p></div><div class="col-md-6 offset-1"><pre class="mt-md">// The grid container
+&lt;section class="grid-portfolio fadein"&gt;
+    &lt;div class="grid-images"&gt;
+    &lt;div class="item-sizer"&gt;&lt;/div&gt;
+        // The item
+        &lt;a class="item wide" href="path/to/work-page.html"&gt; // Wide item
+            // Item content
+        &lt;/a&gt;
+        &lt;a class="item tall" href="path/to/work-page.html"&gt; // Tall item
+            // Item content
+        &lt;/a&gt;
+        &lt;a class="item" href="path/to/work-page.html"&gt;
+            // Item content
+        &lt;/a&gt;
+        &lt;a class="item" href="path/to/work-page.html"&gt;
+            // Item content
+        &lt;/a&gt;
+        ... Etc.
+    &lt;/div&gt;
+&lt;/section&gt;</pre></div></div><div class="row mt-xl"><div class="col-md-5"><h2>Items</h2><p>Items are links that include the ".item" class. Within the link there's a thumbnail background and a caption div that's holding the title.</p></div><div class="col-md-6 offset-1"><pre class="mt-md">// The item
+&lt;a class="item" href="path/to/work-page.html" style="background-image:url(/path/to/bg-image/);"&gt;
+    &lt;div class="caption"&gt;
+        &lt;h4&gt;Caption title&lt;/h4&gt; // Caption title
+    &lt;/div&gt;
+&lt;/a&gt;
+// Another item</pre></div></div><div class="row mt-xl"><div class="col-md-5"><h2>Full size portfolio</h2><p>Ben includes a full size portfolio to showcase your work in a different way. It also has a slightly different markup and includes a navigation list. The nav item should have the same index as the full item.</p></div><div class="col-md-6 offset-1"><pre class="mt-md">// The grid container
+&lt;section class="fs-portfolio fadein"&gt;
+    &lt;ul class="fs-images"&gt;
+        // The item
+        &lt;li style="background-image: url(/path/to/your-background.jpg)"&gt; // Full item
+            &lt;h1&gt;Item title&lt;/h1&gt;
+        &lt;/a&gt;
+        ... Etc.
+    &lt;/ul&gt;
+    &lt;ul class="fs-navigation"&gt;
+        &lt;li&gt;
+            &lt;a href="link/to/project.html"&gt;Link title&lt;/a&gt; // This item should have the same index as the full item.
+        &lt;/li&gt;
+        ... Etc.
+    &lt;/ul&gt;
+    &lt;/div&gt;
+&lt;/section&gt;</pre></div></div></div></section><section class="mt-xl mb-xl"><div class="container"><div class="row"><div class="col-md-12"><span class="mr-lg">Next up</span><a class="btn btn-default" href="tera-lightbox.html">Tera Lightbox</a></div></div></div></section><footer><div class="container-fluid"><div class="row"><div class="col-md-12 text-center"><span>&copy; ThemeVillain. <a href="https://themeforest.net/user/themevillain/portfolio">Buy this template</a></span></div></div></div></footer></div></main><!-- Scripts--><script src="js/vendor.js"></script><script src="js/functions.js"></script></body></html>

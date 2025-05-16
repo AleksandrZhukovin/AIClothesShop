@@ -1,0 +1,38 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+    <section class="fs-portfolio fadein">
+        <ul class="fs-images">
+          <li style="background-image: url({% static 'img/portfolio/wake-up.jpg' %})">
+            <h1>Wakey wakey</h1>
+          </li>
+          <li style="background-image: url({% static 'img/portfolio/blue-bag.jpg' %})">
+            <h1>Saints Bag</h1>
+          </li>
+          <li style="background-image: url({% static 'img/portfolio/face-side.jpg' %})">
+            <h1>67 Jewelry</h1>
+          </li>
+          <li style="background-image: url({% static 'img/portfolio/yellow-book.jpg' %})">
+            <h1>Nasty Paper</h1>
+          </li>
+          <li style="background-image: url({% static 'img/portfolio/vui.jpg' %})">
+            <h1>Pluch</h1>
+          </li>
+          <li style="background-image: url({% static 'img/portfolio/logo-a.jpg' %})">
+            <h1>Vpside down</h1>
+          </li>
+        </ul>
+        <ul class="fs-navigation">
+          <li class="active"><a href="work-single.html">Wakey wakey</a></li>
+          <li><a href="work-single.html">Saints Bag</a></li>
+          <li><a href="work-single.html">67 Jewelry</a></li>
+          <li><a href="work-single.html">Nasty Paper</a></li>
+          <li><a href="work-single.html">Pluch</a></li>
+          <li><a href="work-single.html">Vpside down</a></li>
+        </ul>
+    </section>
+    {% for category in categories %}
+        {{ category.icon|safe }} <a href="">{{ category.name }}</a>
+    {% endfor %}
+{% endblock %}
+
