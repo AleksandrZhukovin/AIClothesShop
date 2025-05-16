@@ -1,14 +1,6 @@
 from django.db import models
 
 from server.apps.core.models import TimeStampedMixin
-from server.apps.catalog.choices import CategoryChoices
-
-
-class Category(TimeStampedMixin):
-    name = models.CharField(max_length=100, choices=CategoryChoices.choices)
-
-    def __str__(self):
-        return f"Category | {self.get_name_display()}"
 
 
 class Item(TimeStampedMixin):
