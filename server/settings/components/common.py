@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    # django-colorfield https://github.com/fabiocaccamo/django-colorfield
+    'colorfield',
     # Manager app
     'server.apps.manager',
     # Core reusable app
