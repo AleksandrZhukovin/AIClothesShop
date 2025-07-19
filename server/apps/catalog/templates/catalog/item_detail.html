@@ -1,0 +1,147 @@
+{% extends 'base/base.html' %}
+
+{% load static %}
+
+{% block head %}
+<style>
+    .thumbnail-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .thumbnail-item {
+        cursor: pointer;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .thumbnail-item.active {
+        border-color: #000;
+    }
+
+    .thumbnail-item img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+    }
+
+    .main-image-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .main-image {
+        display: none;
+        width: 100%;
+    }
+
+    .main-image.active {
+        display: block;
+    }
+
+    .main-image img {
+        width: 100%;
+        height: auto;
+        object-fit: contain;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+  <section class="content fadein">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="col-md-12 col-sm-5" id="sticky">
+            <div class="row">
+                <!-- Thumbnails column -->
+                <div class="col-md-2">
+                    <div class="thumbnail-list">
+                        {% for img in item.images.all %}
+                            <div class="thumbnail-item {% if forloop.first %}active{% endif %}"
+                                  onclick="changeMainImage(this, '{{ img.image.url }}')">
+                                <img src="{{ img.image.url }}" alt="{{ item.name }}" class="img-thumbnail">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- Main image column -->
+                <div class="col-md-10">
+                    <div class="main-image-container">
+                        {% for img in item.images.all %}
+                            <div class="main-image {% if forloop.first %}active{% endif %}">
+                                <img src="{{ img.image.url }}" alt="{{ item.name }}" class="img-fluid">
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <h4>{{ item.name }}</h4>
+            <table class="table mt-md">
+              <tr>
+                <td width="120"><strong>Age</strong></td>
+                <td>26</td>
+              </tr>
+              <tr>
+                <td> <strong>Position</strong></td>
+                <td>Entrepeneur</td>
+              </tr>
+              <tr>
+                <td> <strong>Base</strong></td>
+                <td>Brooklyn, NY</td>
+              </tr>
+              <tr>
+                <td> <strong>Awards</strong></td>
+                <td>3 Awwwards <br>1 Webby Award</td>
+              </tr>
+              <tr>
+                <td> <strong>Active on</strong></td>
+                <td> <a href="#">LinkedIn</a><a href="#">Twitter</a><a href="#">Dribbble</a><a href="#">Behance</a></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div id="sticky-holder">
+            <h1 class="animated-text">Born in Madrid and now living in Brooklyn, New York. Ben Bryden is an entrepeneur who enables the possibilities of your brand in a meaningful and aesthetic way.</h1>
+            <p>When you starting a company you are thinking on how to cut expenses. One of such options to cut the startup costs is a company logo design. But is it good idea to order a cheap logo or work without company logo at all?</p>
+            <p>Logo represents company's identity. First impression is made by logo or its absence. To know the importance of a logo just answer one question: "How many big, leading and famous companies don't have logos?" If you company doesn't have a logo this can raise doubts and negative thoughts. If logo was made by non-professional designer or made by owner of the company it is sometimes worse than no logo at all.</p>
+            <p>One of the popular questions is – why my logo should be custom? If logo is created with the use of a clipart (premade graphic elements from the public collections) it may look like or be identical to other logos and even your competitors' logos. This will make identification of your company difficult or your logo may be easily mixed up with logo of another company. This situation may harm your reputation and money invested in marketing of your brand will be wasted. Good company logo reflects the main point of your company, its values and helps in successful development of the business. Also, it is important to distinguish the logo design for big companies and start-ups. Logo for the big company may consist only of a one graphic element (Nike swoosh) and it will be easily identifiable but for small company such logo is a bad idea because you will need to spent huge amounts of money to promote it.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="content mt-xl fadein">
+    <div class="row">
+      <div class="col-md-12 text-center">
+        <h4>Latest project</h4>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12"><a class="smooth" href="work-single.html"><img src="img/portfolio/yellow-book.jpg"></a></div>
+    </div>
+  </section>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+      function changeMainImage(thumbnailElement, imageUrl) {
+          // Remove active class from all thumbnails
+          document.querySelectorAll('.thumbnail-item').forEach(item => {
+              item.classList.remove('active');
+          });
+
+          // Add active class to clicked thumbnail
+          thumbnailElement.classList.add('active');
+
+          // Update main image
+          const mainImage = document.querySelector('.main-image.active img');
+          if (mainImage) {
+              mainImage.src = imageUrl;
+          }
+      }
+  </script>
+{% endblock %}

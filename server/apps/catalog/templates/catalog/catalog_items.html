@@ -1,0 +1,192 @@
+{% extends 'base/base.html' %}
+
+{% block head %}
+    <style>
+        .card a {
+            text-decoration: none !important;
+            color: inherit !important;
+        }
+        .card:hover, .card:focus-within {
+            box-shadow: 0 0 16px 0 rgba(0,0,0,0.35) !important;
+            transition: box-shadow 0.2s;
+        }
+        .filter-panel {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 0.5rem;
+            padding: 1.25rem 1rem 1rem 1rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        .filter-panel-header {
+            margin-bottom: 1rem;
+        }
+        .filter-panel-body {
+            padding: 0;
+        }
+
+        .htmx-indicator {
+            display: none;
+        }
+
+        .htmx-request .htmx-indicator {
+            display: flex !important;
+        }
+
+        .htmx-request.htmx-indicator {
+            display: flex !important;
+        }
+
+        #loading-overlay {
+            pointer-events: none;
+        }
+        .htmx-indicator.htmx-request,
+        .htmx-request .htmx-indicator {
+            pointer-events: auto;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid">
+        <button class="btn btn-primary d-lg-none mb-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filterPanel" aria-expanded="false" aria-controls="filterPanel">
+            Toggle Filters
+        </button>
+
+        <div class="row">
+            <div class="col-lg-3 mb-4 position-sticky">
+                <div class="collapse d-lg-block" id="filterPanel">
+                    <div class="filter-panel">
+                        <div class="filter-panel-header">
+                            <h5 class="mb-0">Filters</h5>
+                        </div>
+                        <div class="filter-panel-body">
+                            <form hx-get="{{ request.path }}"
+                                  hx-target="#catalog-items"
+                                  hx-swap="innerHTML"
+                                  hx-indicator="#loading-overlay"
+                                  hx-indicator-closest="#catalog-items-container"
+                                  class="filter-form">
+                                <div class="mb-3">
+                                    <h6>Price Range</h6>
+                                    <div class="row g-2">
+                                        <div class="col">
+                                            <input type="number" name="{{ filter.form.min_price.name }}" class="form-control" placeholder="Min" value="{{ request.GET.min_price|default:'' }}">
+                                        </div>
+                                        <div class="col">
+                                            <input type="number" name="{{ filter.form.max_price.name }}" class="form-control" placeholder="Max" value="{{ request.GET.max_price|default:'' }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <h6>{{ filter.form.size.label }}</h6>
+                                    <select name="{{ filter.form.size.name }}" class="form-select">
+                                        {% for size_value, size_label in filter.form.size.field.choices %}
+                                            <option value="{{ size_value }}" {% if request.GET.size == size_value %}selected{% endif %}>
+                                                {{ size_label }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <h6>{{ filter.form.fit.label }}</h6>
+                                    <select name="{{ filter.form.fit.name }}" class="form-select">
+                                        {% for fit_value, fit_label in filter.form.fit.field.choices %}
+                                            <option value="{{ fit_value }}" {% if request.GET.fit == fit_value %}selected{% endif %}>
+                                                {{ fit_label }}
+                                            </option>
+                                        {% endfor %}
+                                    </select>
+                                </div>
+
+                                <div class="mb-3">
+                                    <h6>{{ filter.form.color.label }}</h6>
+                                    <div class="d-flex flex-column">
+                                        {% for color in available_colors %}
+                                            <div class="form-check d-flex align-items-center">
+                                                <input type="checkbox"
+                                                       name="{{ filter.form.color.name }}"
+                                                       value="{{ color }}"
+                                                       class="form-check-input border-secondary"
+                                                       id="color-{{ forloop.counter }}"
+                                                       {% if color in request.GET.color|default:'' %}checked{% endif %}>
+                                                <label class="form-check-label d-flex align-items-center mb-0" for="color-{{ forloop.counter }}">
+                                                    <span class="ms-2 mt-2" style="width: 30px; height: 30px; background-color: {{ color }}; display: inline-block; border: 1px solid #ddd; border-radius: 50%;"></span>
+                                                </label>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+
+                                <div class="d-grid gap-2">
+                                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                                    <a href="{{ request.path }}" class="btn btn-outline-secondary">Reset Filters</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-9 position-relative" id="catalog-items-container">
+                <div id="loading-overlay" class="htmx-indicator position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="background-color: rgba(255, 255, 255, 0.7); z-index: 10;">
+                    <div class="spinner-border text-dark" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </div>
+                {% block catalog_items %}
+                    <div id="catalog-items">
+                        <div class="row mx-2">
+                            {% for item in items %}
+                                <div class="col-md-6 col-lg-4 mb-4">
+                                    <div class="card h-100">
+                                        <a href="{% url 'catalog:item-detail' item.id %}">
+                                            {% with images=item.images.all %}
+                                                {% if images %}
+                                                    <div id="carousel-{{ item.id }}" class="carousel slide" data-bs-ride="carousel">
+                                                        <div class="carousel-inner">
+                                                            {% for img in images %}
+                                                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                                                    <img src="{{ img.image.url }}" class="card-img-top d-block w-100" alt="{{ item.name }}" style="height: 250px; object-fit: cover;">
+                                                                </div>
+                                                            {% endfor %}
+                                                        </div>
+                                                        {% if images.count > 1 %}
+                                                            <button class="carousel-control-prev" type="button" data-bs-target="#carousel-{{ item.id }}" data-bs-slide="prev" onclick="event.stopPropagation();">
+                                                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                                <span class="visually-hidden">Previous</span>
+                                                            </button>
+                                                            <button class="carousel-control-next" type="button" data-bs-target="#carousel-{{ item.id }}" data-bs-slide="next" onclick="event.stopPropagation();">
+                                                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                                <span class="visually-hidden">Next</span>
+                                                            </button>
+                                                        {% endif %}
+                                                    </div>
+                                                {% else %}
+                                                    <div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 250px;">
+                                                        <span class="text-muted">No image available</span>
+                                                    </div>
+                                                {% endif %}
+                                            {% endwith %}
+                                            <div class="card-body">
+                                                <h5 class="card-title mb-0">{{ item.name }}</h5>
+                                                <span class="text-muted small d-block mt-1" style="opacity: 0.7;">{{ item.get_fit_display }}</span>
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <div class="price">
+                                                        <span class="text-muted">${{ item.price }}</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
