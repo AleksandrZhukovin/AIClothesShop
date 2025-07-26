@@ -9,11 +9,15 @@ app_name = "catalog"
 
 urlpatterns = [
     path("", CatalogIndexView.as_view(), name="index"),
-    path("configurator/", ConfiguratorView.as_view(), name="configurator"),
     path(
         "category/<int:category_id>/catalog/",
         CategoryCatalogView.as_view(),
         name="category-catalog",
     ),
     path("item/<int:item_id>/", ItemDetailView.as_view(), name="item-detail"),
+    path(
+        "item/<int:item_id>/configurator/",
+        ConfiguratorView.as_view(),
+        name="item-configurator",
+    ),
 ]

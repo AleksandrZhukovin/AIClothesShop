@@ -79,6 +79,7 @@
                 </div>
             </div>
             <h4>{{ item.name }}</h4>
+            <a href="{% url 'catalog:item-configurator' item.id %}" class="btn btn-primary">Configurator</a>
             <table class="table mt-md">
               <tr>
                 <td width="120"><strong>Age</strong></td>

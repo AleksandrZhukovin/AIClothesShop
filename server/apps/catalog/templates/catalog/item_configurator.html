@@ -1,0 +1,158 @@
+{% extends 'base/base.html' %}
+
+{% block head %}
+<style>
+  .main-canvas {
+    width: 100% !important;
+    max-width: 100%;
+    height: 400px;
+    display: block;
+    margin: 0 auto;
+    background: #fff;
+  }
+  .thumbnail-list-row {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+  }
+  .thumbnail-item-row {
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    padding: 2px;
+  }
+  .thumbnail-item-row.active,
+  .thumbnail-item-row:hover {
+    border-color: #007bff;
+  }
+  @media (max-width: 768px) {
+    .configurator-images {
+      border-right: none !important;
+      border-bottom: 1px solid #eee;
+      margin-bottom: 20px;
+    }
+    .configurator-images, .configurator-form {
+      padding: 10px !important;
+    }
+    .main-canvas {
+      height: 220px;
+    }
+    .thumbnail-list-row {
+      gap: 5px;
+    }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+<div class="row d-flex flex-wrap">
+    <!-- Images column -->
+    <div class="col-md-8 configurator-images">
+        <!-- Main canvas (only one visible at a time) -->
+        {% for img in item.images.all %}
+            <canvas
+                id="canvas{{ img.id }}"
+                class="main-canvas"
+                data-img-url="{{ img.image.url }}"
+                style="{% if not forloop.first %}display:none;{% endif %} width: 100%; height: 400px;"
+            ></canvas>
+        {% endfor %}
+        <!-- Thumbnails row -->
+        <div class="thumbnail-list-row d-flex justify-content-center mt-3">
+            {% for img in item.images.all %}
+                <div class="thumbnail-item-row mx-1 {% if forloop.first %}active{% endif %}"
+                    onclick="showCanvas('canvas{{ img.id }}', this)"
+                    style="cursor:pointer; width: 60px;">
+                    <img src="{{ img.image.url }}" alt="{{ item.name }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Prompt form column -->
+    <div class="col-md-4 configurator-form">
+      <img id="test" width="500">
+      <!-- Loading spinner -->
+      <div id="loading-spinner" class="text-center" style="display: none;">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-2">Generating your print...</p>
+      </div>
+    <form method="post" id="user_prompt_form">
+        {% csrf_token %}
+        <div class="mb-3">
+        <label for="user_prompt" class="form-label">Prompt for print</label>
+        <input type="text" id="user_prompt" name="user_prompt" class="form-control" placeholder="Enter your print prompt here...">
+        </div>
+        <button type="submit" class="btn btn-primary" id="submit-btn">Save</button>
+    </form>
+    </div>
+</div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/print-edit-lib@latest/dist/PrintEditor.umd.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script>
+    const canvases = document.querySelectorAll('.main-canvas');
+
+    function showCanvas(id, thumbEl) {
+        canvases.forEach(canvas => {
+            canvas.style.display = (canvas.id === id) ? 'block' : 'none';
+        });
+        const thumbnails = document.querySelectorAll('.thumbnail-item-row');
+        thumbnails.forEach(thumb => {
+            thumb.classList.remove('active');
+        });
+        if (thumbEl) {
+            thumbEl.classList.add('active');
+        }
+    }
+
+    $('#user_prompt_form').submit(function (event){
+      event.preventDefault();
+
+      // Show loading spinner and disable submit button
+      $('#loading-spinner').show();
+      $('#submit-btn').prop('disabled', true).text('Generating...');
+
+      $.ajax({
+        "url": "{% url 'catalog:item-configurator' item.id %}",
+        "type": "POST",
+        "dataType": "json",
+        "async": true,
+        "data": {
+          "user_prompt": $('#user_prompt').val(),
+          "csrfmiddlewaretoken": $('[name=csrfmiddlewaretoken]').val()
+        },
+        "success": function (response){
+          $('#test').attr('src', response.print_url);
+          // Hide loading spinner and re-enable submit button
+          $('#loading-spinner').hide();
+          $('#submit-btn').prop('disabled', false).text('Save');
+        },
+        "error": function (jqXHR, error_type, exception){
+          console.log(jqXHR, error_type, exception);
+          // Hide loading spinner and re-enable submit button on error
+          $('#loading-spinner').hide();
+          $('#submit-btn').prop('disabled', false).text('Save');
+          // Optionally show error message to user
+          alert('Error generating print. Please try again.');
+        }
+      })
+    });
+
+    // canvases.forEach(canvas => {
+    //     new window.PrintEditor.PrintEditor(
+    //         canvas.id,
+    //         't-shirt_background.png',
+    //         'print_editable.png'
+    //     );
+    // });
+</script>
+{% endblock %}
