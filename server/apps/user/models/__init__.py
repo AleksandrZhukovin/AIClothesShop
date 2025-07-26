@@ -1,2 +1,2 @@
 from .profile import Profile
-from .gallary import Gallary, GallaryImage
+from .gallary import GallaryImage
