@@ -48,14 +48,11 @@ INSTALLED_APPS = [
     "django_htmx",
     # django-colorfield https://github.com/fabiocaccamo/django-colorfield
     "colorfield",
-    # Manager app
     "server.apps.manager",
-    # Core reusable app
     "server.apps.core",
-    # Site cover page app
     "server.apps.cover",
-    # Products catalog app
     "server.apps.catalog",
+    "server.apps.user",
 ]
 
 MIDDLEWARE = [
