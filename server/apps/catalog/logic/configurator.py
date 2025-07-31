@@ -5,7 +5,7 @@ from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
 
 from server.apps.catalog.models import Item
-from server.apps.user.models import GallaryImage
+from server.apps.user.models import GalleryImage
 
 import os
 import openai
@@ -15,9 +15,10 @@ __all__ = ("ConfiguratorView",)
 
 
 class OpenAIPrintGenerator:
-    def __init__(self, user_prompt, user, model="gpt-4o"):
+    def __init__(self, user_prompt, user, session, model="gpt-4o"):
         self.user_prompt = user_prompt
         self.user = user
+        self.session = session
         self.print_prompt = None
         self.model = model
         self.api_key = os.environ.get("OPENAI_API_KEY")
@@ -35,8 +36,8 @@ class OpenAIPrintGenerator:
         self.print_prompt = " ".join((context_prompt, self.user_prompt))
         return self.print_prompt
 
-    def unauthenticated_user_save(self, image_data, response):
-        return GallaryImage.unauthenticated_user_save(image_data, response)
+    def unauthenticated_user_save(self, image_data, session):
+        return GallaryImage.unauthenticated_user_save(image_data, session)
 
     def authenticated_user_save(self, image_data):
         from server.apps.user.models import GallaryImage
@@ -67,7 +68,7 @@ class OpenAIPrintGenerator:
             if self.user.is_authenticated:
                 return self.authenticated_user_save(image_data)
             else:
-                return self.unauthenticated_user_save(image_data, response)
+                return self.unauthenticated_user_save(image_data, self.session)
         except Exception as e:
             raise RuntimeError(f"OpenAI image generation failed: {e}")
 
@@ -81,7 +82,9 @@ class ConfiguratorView(DetailView):
     def post(self, request, *args, **kwargs):
         user_prompt = request.POST.get("user_prompt")
         if user_prompt:
-            print_generator = OpenAIPrintGenerator(user_prompt, request.user)
+            print_generator = OpenAIPrintGenerator(
+                user_prompt, request.user, request.session
+            )
             try:
                 print_url = print_generator.generate()
                 return JsonResponse({"print_url": print_url})

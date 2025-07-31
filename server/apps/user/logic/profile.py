@@ -1,12 +1,9 @@
 from django.db.models.base import Model as Model
-from server.apps.user.models import Profile, GallaryImage
-from django.views.generic import DetailView, ListView
+from server.apps.user.models import Profile
+from django.views.generic import DetailView
 
 
-__all__ = (
-    "UserProfileView",
-    "UserGallaryView",
-)
+__all__ = ("UserProfileView",)
 
 
 class UserProfileView(DetailView):
@@ -16,12 +13,3 @@ class UserProfileView(DetailView):
 
     def get_queryset(self):
         return super().get_queryset().select_related("user")
-
-
-class UserGallaryView(ListView):
-    model = GallaryImage
-    template_name = "user/partials/gallary.html"
-    context_object_name = "gallary"
-
-    def get_queryset(self):
-        return super().get_queryset().filter(user__pk=self.kwargs["user_id"])
