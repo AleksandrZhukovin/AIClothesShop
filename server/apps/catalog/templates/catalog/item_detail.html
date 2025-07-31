@@ -2,53 +2,6 @@
 
 {% load static %}
 
-{% block head %}
-<style>
-    .thumbnail-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        margin-bottom: 20px;
-    }
-
-    .thumbnail-item {
-        cursor: pointer;
-        border: 2px solid transparent;
-        transition: all 0.3s ease;
-    }
-
-    .thumbnail-item.active {
-        border-color: #000;
-    }
-
-    .thumbnail-item img {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-    }
-
-    .main-image-container {
-        position: relative;
-        width: 100%;
-    }
-
-    .main-image {
-        display: none;
-        width: 100%;
-    }
-
-    .main-image.active {
-        display: block;
-    }
-
-    .main-image img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-    }
-</style>
-{% endblock %}
-
 {% block content %}
   <section class="content fadein">
     <div class="container-fluid">
@@ -62,7 +15,7 @@
                         {% for img in item.images.all %}
                             <div class="thumbnail-item {% if forloop.first %}active{% endif %}"
                                   onclick="changeMainImage(this, '{{ img.image.url }}')">
-                                <img src="{{ img.image.url }}" alt="{{ item.name }}" class="img-thumbnail">
+                                <img src="{{ img.image.url }}" alt="{{ item.name }}" class="img-thumbnail m-0 p-0">
                             </div>
                         {% endfor %}
                     </div>

@@ -1,52 +1,5 @@
 {% extends 'base/base.html' %}
 
-{% block head %}
-    <style>
-        .card a {
-            text-decoration: none !important;
-            color: inherit !important;
-        }
-        .card:hover, .card:focus-within {
-            box-shadow: 0 0 16px 0 rgba(0,0,0,0.35) !important;
-            transition: box-shadow 0.2s;
-        }
-        .filter-panel {
-            background: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 0.5rem;
-            padding: 1.25rem 1rem 1rem 1rem;
-            margin-bottom: 1rem;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-        }
-        .filter-panel-header {
-            margin-bottom: 1rem;
-        }
-        .filter-panel-body {
-            padding: 0;
-        }
-
-        .htmx-indicator {
-            display: none;
-        }
-
-        .htmx-request .htmx-indicator {
-            display: flex !important;
-        }
-
-        .htmx-request.htmx-indicator {
-            display: flex !important;
-        }
-
-        #loading-overlay {
-            pointer-events: none;
-        }
-        .htmx-indicator.htmx-request,
-        .htmx-request .htmx-indicator {
-            pointer-events: auto;
-        }
-    </style>
-{% endblock %}
-
 {% block content %}
     <div class="container-fluid">
         <button class="btn btn-primary d-lg-none mb-3 w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filterPanel" aria-expanded="false" aria-controls="filterPanel">
