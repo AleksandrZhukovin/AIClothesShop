@@ -2,7 +2,6 @@ from django.views.generic import DetailView
 from django.http import JsonResponse, HttpResponse
 import base64
 from django.core.files.base import ContentFile
-from django.core.files.storage import default_storage
 
 from server.apps.catalog.models import Item
 from server.apps.user.models import GalleryImage
@@ -36,8 +35,8 @@ class OpenAIPrintGenerator:
         self.print_prompt = " ".join((context_prompt, self.user_prompt))
         return self.print_prompt
 
-    def unauthenticated_user_save(self, image_data, session):
-        return GalleryImage.unauthenticated_user_save(image_data, session)
+    def unauthenticated_user_save(self, image_data):
+        return GalleryImage.unauthenticated_user_save(image_data, self.session)
 
     def authenticated_user_save(self, image_data):
         if image_data:
@@ -66,7 +65,7 @@ class OpenAIPrintGenerator:
             if self.user.is_authenticated:
                 return self.authenticated_user_save(image_data)
             else:
-                return self.unauthenticated_user_save(image_data, self.session)
+                return self.unauthenticated_user_save(image_data)
         except Exception as e:
             raise RuntimeError(f"OpenAI image generation failed: {e}")
 

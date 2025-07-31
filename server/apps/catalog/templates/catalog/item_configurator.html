@@ -1,5 +1,7 @@
 {% extends 'base/base.html' %}
 
+{% load static %}
+
 {% block content %}
 <div class="container-fluid">
   <div class="row d-flex flex-wrap">
@@ -64,59 +66,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="https://cdn.jsdelivr.net/npm/print-edit-lib@latest/dist/PrintEditor.umd.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script>
-    const canvases = document.querySelectorAll('.main-canvas');
-
-    function showCanvas(id, thumbEl) {
-        canvases.forEach(canvas => {
-            canvas.style.display = (canvas.id === id) ? 'block' : 'none';
-        });
-        const thumbnails = document.querySelectorAll('.thumbnail-item-row');
-        thumbnails.forEach(thumb => {
-            thumb.classList.remove('active');
-        });
-        if (thumbEl) {
-            thumbEl.classList.add('active');
-        }
-    }
-
-    $('#user_prompt_form').submit(function (event){
-      event.preventDefault();
-
-      $('#loading-spinner').show();
-      $('#submit-btn').prop('disabled', true).text('Generating...');
-
-      $.ajax({
-        "url": "{% url 'catalog:item-configurator' item.id %}",
-        "type": "POST",
-        "dataType": "json",
-        "async": true,
-        "data": {
-          "user_prompt": $('#user_prompt').val(),
-          "csrfmiddlewaretoken": $('[name=csrfmiddlewaretoken]').val()
-        },
-        "success": function (response){
-          $('#test').attr('src', response.print_url);
-          $('#loading-spinner').hide();
-          $('#submit-btn').prop('disabled', false).text('Save');
-        },
-        "error": function (jqXHR, error_type, exception){
-          console.log(jqXHR, error_type, exception);
-          $('#loading-spinner').hide();
-          $('#submit-btn').prop('disabled', false).text('Save');
-          alert('Error generating print. Please try again.');
-        }
-      })
-    });
-
-    // canvases.forEach(canvas => {
-    //     new window.PrintEditor.PrintEditor(
-    //         canvas.id,
-    //         't-shirt_background.png',
-    //         'print_editable.png'
-    //     );
-    // });
-</script>
+    <script src="https://cdn.jsdelivr.net/npm/print-edit-lib@latest/dist/PrintEditor.umd.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="{% static 'scripts/custom/item_configurator.js'%}"></script>
 {% endblock %}

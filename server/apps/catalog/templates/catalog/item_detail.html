@@ -1,4 +1,4 @@
-{% extends 'base/base.html' %}
+% extends 'base/base.html' %}
 
 {% load static %}
 
@@ -38,31 +38,11 @@
                 <td width="120"><strong>Age</strong></td>
                 <td>26</td>
               </tr>
-              <tr>
-                <td> <strong>Position</strong></td>
-                <td>Entrepeneur</td>
-              </tr>
-              <tr>
-                <td> <strong>Base</strong></td>
-                <td>Brooklyn, NY</td>
-              </tr>
-              <tr>
-                <td> <strong>Awards</strong></td>
-                <td>3 Awwwards <br>1 Webby Award</td>
-              </tr>
-              <tr>
-                <td> <strong>Active on</strong></td>
-                <td> <a href="#">LinkedIn</a><a href="#">Twitter</a><a href="#">Dribbble</a><a href="#">Behance</a></td>
-              </tr>
             </table>
           </div>
         </div>
         <div class="col-md-6">
           <div id="sticky-holder">
-            <h1 class="animated-text">Born in Madrid and now living in Brooklyn, New York. Ben Bryden is an entrepeneur who enables the possibilities of your brand in a meaningful and aesthetic way.</h1>
-            <p>When you starting a company you are thinking on how to cut expenses. One of such options to cut the startup costs is a company logo design. But is it good idea to order a cheap logo or work without company logo at all?</p>
-            <p>Logo represents company's identity. First impression is made by logo or its absence. To know the importance of a logo just answer one question: "How many big, leading and famous companies don't have logos?" If you company doesn't have a logo this can raise doubts and negative thoughts. If logo was made by non-professional designer or made by owner of the company it is sometimes worse than no logo at all.</p>
-            <p>One of the popular questions is – why my logo should be custom? If logo is created with the use of a clipart (premade graphic elements from the public collections) it may look like or be identical to other logos and even your competitors' logos. This will make identification of your company difficult or your logo may be easily mixed up with logo of another company. This situation may harm your reputation and money invested in marketing of your brand will be wasted. Good company logo reflects the main point of your company, its values and helps in successful development of the business. Also, it is important to distinguish the logo design for big companies and start-ups. Logo for the big company may consist only of a one graphic element (Nike swoosh) and it will be easily identifiable but for small company such logo is a bad idea because you will need to spent huge amounts of money to promote it.</p>
           </div>
         </div>
       </div>
@@ -83,15 +63,10 @@
 {% block scripts %}
   <script>
       function changeMainImage(thumbnailElement, imageUrl) {
-          // Remove active class from all thumbnails
           document.querySelectorAll('.thumbnail-item').forEach(item => {
               item.classList.remove('active');
           });
-
-          // Add active class to clicked thumbnail
           thumbnailElement.classList.add('active');
-
-          // Update main image
           const mainImage = document.querySelector('.main-image.active img');
           if (mainImage) {
               mainImage.src = imageUrl;

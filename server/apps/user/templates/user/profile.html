@@ -66,17 +66,3 @@
     </div>
 </div>
 {% endblock %}
-
-{% block scripts %}
-<script>
-    document.body.addEventListener('htmx:beforeRequest', function(event) {
-        document.querySelectorAll('.nav-tabs .nav-link').forEach(link => {
-            link.classList.remove('active');
-        });
-
-        // Add active class to the clicked button
-        const clickedButton = event.detail.elt;
-        clickedButton.classList.add('active');
-    });
-</script>
-{% endblock %}
