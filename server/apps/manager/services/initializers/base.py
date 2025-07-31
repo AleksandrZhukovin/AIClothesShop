@@ -6,7 +6,7 @@ from django.db import models
 
 class ModelInitializer(ABC):
     """Base class for model data initialization."""
-    
+
     def __init__(self, model: Type[models.Model]):
         self.model = model
 
@@ -25,4 +25,4 @@ class ModelInitializer(ABC):
             if created:
                 created_objects.append(obj)
 
-        return created_objects 
+        return created_objects

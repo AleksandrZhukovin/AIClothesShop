@@ -13,7 +13,4 @@ class CategoryInitializer(ModelInitializer):
 
     def get_initial_data(self) -> List[dict]:
         """Return initial category data based on CategoryChoices."""
-        return [
-            {'name': choice.value}
-            for choice in CategoryChoices
-        ] 
+        return [{"name": choice.value} for choice in CategoryChoices]

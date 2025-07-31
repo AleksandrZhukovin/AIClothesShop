@@ -12,22 +12,21 @@ class DatabaseInitializer:
     def __init__(self):
         self.initializers: List[Type[ModelInitializer]] = [
             CategoryInitializer,
-            # Add more initializers here as needed
         ]
 
     @transaction.atomic
     def initialize_all(self) -> dict:
         """Initialize all registered models."""
         results = {}
-        
+
         for initializer_class in self.initializers:
             initializer = initializer_class()
             model_name = initializer.model.__name__
             created_objects = initializer.initialize()
-            
+
             results[model_name] = {
-                'created_count': len(created_objects),
-                'created_objects': created_objects
+                "created_count": len(created_objects),
+                "created_objects": created_objects,
             }
-        
-        return results 
+
+        return results
