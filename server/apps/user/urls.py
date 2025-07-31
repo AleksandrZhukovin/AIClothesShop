@@ -9,7 +9,7 @@ app_name = "user"
 urlpatterns = [
     path("profile/<int:profile_id>/", UserProfileView.as_view(), name="user_profile"),
     path(
-        "<int:user_id>/gallery/",
+        "auth/gallery/",
         UserGalleryView.as_view(gallery_type=AUTHENTICATED_USER_GALLERY),
         name="auth_user_gallery",
     ),

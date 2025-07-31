@@ -38,11 +38,11 @@
                             </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="gallary-tab"
-                                    hx-get="{% url 'user:user_gallary' profile.user.id %}"
+                            <button class="nav-link" id="gallery-tab"
+                                    hx-get="{% url 'user:auth_user_gallery' profile.user.id %}"
                                     hx-target="#profileTabContent"
                                     hx-swap="innerHTML"
-                                    data-tab="gallary">
+                                    data-tab="gallery">
                                 <i class="bi bi-images me-2"></i>Gallery
                             </button>
                         </li>

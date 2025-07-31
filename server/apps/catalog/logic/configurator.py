@@ -37,18 +37,16 @@ class OpenAIPrintGenerator:
         return self.print_prompt
 
     def unauthenticated_user_save(self, image_data, session):
-        return GallaryImage.unauthenticated_user_save(image_data, session)
+        return GalleryImage.unauthenticated_user_save(image_data, session)
 
     def authenticated_user_save(self, image_data):
-        from server.apps.user.models import GallaryImage
-
         if image_data:
             image_base64 = image_data[0]
             image_bytes = base64.b64decode(image_base64)
             image_file = ContentFile(image_bytes)
-            gallary_image = GallaryImage.objects.create(user=self.user)
-            gallary_image.image.save("print.png", image_file, save=True)
-            return gallary_image.image.url
+            gallery_image = GalleryImage.objects.create(user=self.user)
+            gallery_image.image.save("print.png", image_file, save=True)
+            return gallery_image.image.url
 
     def generate(self):
         openai.api_key = self.api_key

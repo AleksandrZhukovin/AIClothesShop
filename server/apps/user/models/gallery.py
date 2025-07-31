@@ -1,9 +1,10 @@
+import base64
+import uuid
+
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
-import base64
-import uuid
 
 from server.apps.user.constants import SESSION_GALLERY_KEY
 
@@ -21,14 +22,14 @@ class GalleryImage(models.Model):
 
         file_url = GalleryImage.save_image_to_media(image_data)
 
-        GalleryImage.check_session_gallery(session)
+        GalleryImage.get_session_gallery(session)
         session[SESSION_GALLERY_KEY].append(file_url)
         session.modified = True
 
         return file_url
 
     @staticmethod
-    def check_session_gallery(session) -> list[str]:
+    def get_session_gallery(session) -> list[str]:
         return session.setdefault(SESSION_GALLERY_KEY, [])
 
     @staticmethod
