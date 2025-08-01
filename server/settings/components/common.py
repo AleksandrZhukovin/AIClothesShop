@@ -53,6 +53,9 @@ INSTALLED_APPS = [
     "server.apps.cover",
     "server.apps.catalog",
     "server.apps.user",
+    # djnago-cleanup https://github.com/un1t/django-cleanup
+    # The app must be the last in array due to the docs!
+    "django_cleanup.apps.CleanupConfig",
 ]
 
 MIDDLEWARE = [
