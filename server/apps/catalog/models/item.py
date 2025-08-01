@@ -29,7 +29,7 @@ class Item(TimeStampedMixin):
         )
 
 
-class ItemImage(models.Model):
+class ItemImage(TimeStampedMixin):
     item = models.ForeignKey(
         "catalog.Item", on_delete=models.CASCADE, related_name="images"
     )
