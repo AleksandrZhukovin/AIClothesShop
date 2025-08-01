@@ -2,28 +2,28 @@ from django.views.generic import ListView, DeleteView
 from django.http import HttpResponse
 
 from server.apps.user.models import GalleryImage
-from server.apps.user.constants import AUTHENTICATED_USER_GALLERY, SESSION_USER_GALLERY
 
 
-__all__ = ("GalleryView", "GalleryImageDeleteView")
+__all__ = ("UserGalleryView", "SessionGalleryView", "GalleryImageDeleteView")
 
 
-class GalleryView(ListView):
+class AbstractGalleryView(ListView):
     model = GalleryImage
     context_object_name = "gallery"
-    gallery_type = None
+
+
+class UserGalleryView(AbstractGalleryView):
+    template_name = "user/partials/auth_user_gallery.html"
 
     def get_queryset(self):
-        if self.gallery_type == AUTHENTICATED_USER_GALLERY:
-            return super().get_queryset().filter(user__pk=self.request.user.id)
-        elif self.gallery_type == SESSION_USER_GALLERY:
-            return GalleryImage.get_session_gallery(self.request.session)
+        return super().get_queryset().filter(user__pk=self.request.user.id)
 
-    def get_template_names(self):
-        if self.gallery_type == AUTHENTICATED_USER_GALLERY:
-            return "user/partials/auth_user_gallery.html"
-        elif self.gallery_type == SESSION_USER_GALLERY:
-            return "user/partials/session_gallery.html"
+
+class SessionGalleryView(AbstractGalleryView):
+    template_name = "user/partials/session_gallery.html"
+
+    def get_queryset(self):
+        return self.model.get_session_gallery(self.request.session)
 
 
 class GalleryImageDeleteView(DeleteView):
