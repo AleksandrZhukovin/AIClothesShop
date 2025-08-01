@@ -26,7 +26,7 @@
 
     {% block head %}{% endblock %}
 </head>
-<body class="preload">
+<body class="preload" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     <div class="container-fluid">
         {% include 'base/header.html' %}
 

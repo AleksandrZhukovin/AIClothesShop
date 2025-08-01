@@ -7,7 +7,6 @@
 <div class="profile-container">
     <div class="container">
         <div class="row">
-            <!-- Sidebar with tabs -->
             <div class="col-lg-3 col-md-4 mb-4">
                 <div class="profile-sidebar">
                     <div class="profile-header">
@@ -39,7 +38,7 @@
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link" id="gallery-tab"
-                                    hx-get="{% url 'user:auth_user_gallery' profile.user.id %}"
+                                    hx-get="{% url 'user:auth_user_gallery' %}"
                                     hx-target="#profileTabContent"
                                     hx-swap="innerHTML"
                                     data-tab="gallery">
@@ -50,14 +49,11 @@
                 </div>
             </div>
 
-            <!-- Main content area -->
             <div class="col-lg-9 col-md-8">
                 <div class="profile-content">
                     <div class="tab-content" id="profileTabContent">
-                        <!-- Default content for overview tab -->
                         <div id="overview-content">
                             <h4 class="mb-4">Profile Overview</h4>
-                            <!-- Add your overview content here -->
                         </div>
                     </div>
                 </div>

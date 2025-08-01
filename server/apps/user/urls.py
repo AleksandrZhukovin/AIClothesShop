@@ -10,12 +10,17 @@ urlpatterns = [
     path("profile/<int:profile_id>/", UserProfileView.as_view(), name="user_profile"),
     path(
         "auth/gallery/",
-        UserGalleryView.as_view(gallery_type=AUTHENTICATED_USER_GALLERY),
+        GalleryView.as_view(gallery_type=AUTHENTICATED_USER_GALLERY),
         name="auth_user_gallery",
     ),
     path(
         "gallery/",
-        UserGalleryView.as_view(gallery_type=SESSION_USER_GALLERY),
+        GalleryView.as_view(gallery_type=SESSION_USER_GALLERY),
         name="session_user_gallery",
+    ),
+    path(
+        "gallery/image/<int:image_id>/delete/",
+        GalleryImageDeleteView.as_view(),
+        name="gallery_image_delete",
     ),
 ]

@@ -51,7 +51,7 @@
           <p class="mt-2">Generating your print...</p>
         </div>
 
-        <form method="post" id="user_prompt_form">
+        <form method="post" id="user_prompt_form" action="{% url 'catalog:item-configurator' item.id %}">
             {% csrf_token %}
             <div class="mb-3">
             <label for="user_prompt" class="form-label">Prompt for print</label>

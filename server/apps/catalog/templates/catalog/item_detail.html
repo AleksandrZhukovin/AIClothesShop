@@ -1,4 +1,4 @@
-% extends 'base/base.html' %}
+{% extends 'base/base.html' %}
 
 {% load static %}
 
@@ -9,7 +9,6 @@
         <div class="col-md-6">
           <div class="col-md-12 col-sm-5" id="sticky">
             <div class="row">
-                <!-- Thumbnails column -->
                 <div class="col-md-2">
                     <div class="thumbnail-list">
                         {% for img in item.images.all %}
@@ -20,7 +19,6 @@
                         {% endfor %}
                     </div>
                 </div>
-                <!-- Main image column -->
                 <div class="col-md-10">
                     <div class="main-image-container">
                         {% for img in item.images.all %}
@@ -53,9 +51,6 @@
       <div class="col-md-12 text-center">
         <h4>Latest project</h4>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12"><a class="smooth" href="work-single.html"><img src="img/portfolio/yellow-book.jpg"></a></div>
     </div>
   </section>
 {% endblock %}
