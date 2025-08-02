@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # django-storages https://github.com/jschneier/django-storages
     "storages",
     # django-filters https://django-filters.readthedocs.io/en/stable/index.html
     "django_filters",
