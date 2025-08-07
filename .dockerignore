@@ -1,0 +1,68 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Distribution / packaging
+.Python
+env/
+venv/
+build/
+develop-eggs/
+dist/
+downloads/
+.eggs/
+.eggs-info/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Poetry virtual environments (if any)
+.poetry/
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Django stuff:
+*.log
+local_settings.py
+db.sqlite3
+media/
+staticfiles/
+
+# VSCode settings
+.vscode/
+
+# PyCharm settings
+.idea/
+
+# Git files
+.git
+.gitignore
+
+# Environment variables
+.env
+
+# Docker files
+Dockerfile
+docker-compose.yml
+
+# Project specific
+base_templates/
