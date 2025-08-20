@@ -12,6 +12,7 @@ services:
       - .env
     depends_on:
       - db
+      - redis
 
   db:
     image: postgres:16
@@ -20,6 +21,12 @@ services:
       - postgres_data:/var/lib/postgresql/data
     env_file:
       - .env
+
+  redis:
+    image: redis:7
+    container_name: ai_clothes_store_redis
+    ports:
+      - "6379:6379"
 
 volumes:
   postgres_data:
