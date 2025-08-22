@@ -2,6 +2,7 @@ services:
   web:
     build: .
     container_name: ai_clothes_store_app
+    command: python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/app
     ports:
@@ -25,6 +26,32 @@ services:
     container_name: ai_clothes_store_redis
     ports:
       - "6379:6379"
+
+  celery-worker:
+    build: .
+    container_name: ai_clothes_store_worker
+    command: celery -A server worker --loglevel=info
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - db
+      - web
+
+  celery-beat:
+    build: .
+    container_name: ai_clothes_store_beat
+    command: celery -A server beat --loglevel=info
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - db
+      - web
 
 volumes:
   postgres_data:
