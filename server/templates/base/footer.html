@@ -1,23 +1,91 @@
 {% load i18n %}
 
-<footer>
-    <form action="{% url 'set_language' %}" method="POST" class="language-switcher">
-        {% csrf_token %}
-        <input name="next" type="hidden" value="{{ request.path }}">
-        <select name="language" class="form-select" onchange="this.form.submit()">
-            {% get_current_language as LANGUAGE_CODE %}
-            {% get_available_languages as LANGUAGES %}
-            {% get_language_info_list for LANGUAGES as languages %}
-            {% for language in languages %}
-                <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
-                    {{ language.name_local }} ({{ language.code }})
-                </option>
-            {% endfor %}
-        </select>
-    </form>
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12 text-center"><span>&copy; ThemeVillain. <a href="https://themeforest.net/user/themevillain/portfolio" target="_blank">Buy this template</a></span></div>
-      </div>
+<footer class="site-footer border-top">
+    <div class="container">
+        <div class="row footer-top">
+            <div class="col-md-3">
+                <h5>About Us</h5>
+                <p class="fs-6">We provide high-quality templates and solutions for modern websites. Stay connected with us!</p>
+            </div>
+
+            <div class="col-md-3">
+                <h5>Quick Links</h5>
+                <ul class="footer-links">
+                    <li><a href="{% url 'index' %}">Home</a></li>
+                    <li><a href="{% url 'catalog:index' %}">Catalog</a></li>
+                    <li><a href="">Contact</a></li>
+                    <li><a href="">Blog</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3">
+                <h5>Connect with us</h5>
+                <ul class="footer-links">
+                    <li><a href="#" target="_blank">Facebook</a></li>
+                    <li><a href="#" target="_blank">Twitter</a></li>
+                    <li><a href="#" target="_blank">Instagram</a></li>
+                    <li><a href="#" target="_blank">LinkedIn</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-3">
+                <form action="{% url 'set_language' %}" method="POST" class="language-switcher mt-3 d-flex align-items-center">
+                    {% csrf_token %}
+                    <input name="next" type="hidden" value="{{ request.path }}">
+                    <i class="bi bi-globe2 me-2"></i>
+                    <select name="language" class="form-select" onchange="this.form.submit()">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% get_language_info_list for LANGUAGES as languages %}
+                        {% for language in languages %}
+                            <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                {{ language.name_local }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </div>
+        </div>
+
+        <div class="row footer-bottom mt-4">
+            <div class="col-md-12 text-center">
+                <span>&copy; {% now "Y" %} ThemeVillain.</span>
+            </div>
+        </div>
     </div>
 </footer>
+
+<style>
+    .site-footer {
+        padding: 40px 0;
+    }
+
+    .site-footer a {
+        text-decoration: none;
+    }
+
+    .footer-links {
+        list-style: none;
+        padding: 0;
+    }
+
+    .newsletter-form input {
+        width: 70%;
+        padding: 8px;
+        margin-right: 5px;
+        border: none;
+        border-radius: 3px;
+    }
+    .newsletter-form button {
+        padding: 8px 12px;
+        border: none;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+
+    .language-switcher select {
+        padding: 5px;
+        border-radius: 3px;
+        border: none;
+    }
+</style>
