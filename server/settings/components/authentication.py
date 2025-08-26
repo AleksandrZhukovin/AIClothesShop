@@ -4,6 +4,7 @@ from server.settings.components.common import INSTALLED_APPS, MIDDLEWARE
 
 
 INSTALLED_APPS += [
+    # django-allauth https://docs.allauth.org/en/latest/
     "allauth",
     "allauth.account",
     "allauth.socialaccount.providers.google",
