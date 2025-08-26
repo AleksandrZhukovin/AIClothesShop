@@ -28,6 +28,7 @@ urlpatterns = [
     path("", CoverView.as_view(), name="index"),
     path("catalog/", include("server.apps.catalog.urls")),
     path("user/", include("server.apps.user.urls")),
+    path("accounts/", include("allauth.urls")),
 ]
 
 if settings.DEBUG:

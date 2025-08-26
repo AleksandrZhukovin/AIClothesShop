@@ -8,6 +8,7 @@ _ENV = environ["DJANGO_ENV"]
 
 _base_settings = (
     "components/common.py",
+    "components/authentication.py",
     "components/s3_bucket.py",
     "components/celery.py",
     optional("environments/local.py"),
