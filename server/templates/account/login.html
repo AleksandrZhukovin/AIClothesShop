@@ -1,0 +1,21 @@
+{% extends 'account/base.html' %}
+
+{% load i18n %}
+{% load allauth %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <h2 class="text-center mt-3 mt-md-0">Log In</h2>
+    <h4 class="text-center">Enter your account here</h4>
+    <form method="post" action="{% url 'account_login' %}">
+        {% csrf_token %}
+        {{ form.login|add_class:"account-input" }}
+        {{ form.password|add_class:"account-input" }}
+        <p class="d-flex align-items-center justify-content-center gap-2 fs-6">
+            {{ form.remember.label }}
+            {{ form.remember }}
+        </p>
+        <input type="submit" class="btn btn-primary d-block mx-auto" value="{% translate "Log In" %}">
+    </form>
+    <p class="text-center fs-6">Still have no account? <a href="{% url 'account_signup' %}">Sign Up</a></p>
+{% endblock content %}

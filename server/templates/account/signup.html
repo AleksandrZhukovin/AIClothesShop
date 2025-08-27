@@ -1,0 +1,18 @@
+{% extends 'account/base.html' %}
+
+{% load i18n %}
+{% load allauth %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <h2 class="text-center mt-3 mt-md-0">Sign Up</h2>
+    <h4 class="text-center">Create your account here</h4>
+    <form method="post" action="{% url 'account_signup' %}">
+        {% csrf_token %}
+        {{ form.email|add_class:"account-input" }}
+        {{ form.password1|add_class:"account-input" }}
+        {{ form.password2|add_class:"account-input" }}
+        <input type="submit" class="btn btn-primary d-block mx-auto" value="{% translate "Sign Up" %}">
+    </form>
+    <p class="text-center fs-6">Already have an account? <a href="{% url 'account_login' %}">Log In</a></p>
+{% endblock content %}

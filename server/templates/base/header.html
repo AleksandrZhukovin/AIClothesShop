@@ -1,20 +1,49 @@
 {% load static %}
+{% load i18n %}
 
-<header>
+<header class="pt-0">
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-md-12 text-center"><a class="brand" href="{% url 'index' %}"><img class="default" src="{% static 'img/logo.svg' %}"><img class="white" src="{% static 'img/logo-white.svg' %}"></a>
-          <ul class="main-nav">
-            <li><a {% if request.resolver_match.view_name == 'index' %}class="active"{% endif %} href="{% url 'index' %}" title="Work">Main</a>
-            </li>
-            <li><a {% if request.resolver_match.namespace  == 'catalog' %}class="active"{% endif %} href="{% url 'catalog:index' %}" title="About">Catalog</a>
-            </li>
-            <li><a href="blog.html" title="Blog">Blog</a>
-            </li>
-            <li><a href="contact.html" title="Contact">Contact</a>
-            </li>
-          </ul>
+    <div class="row text-end m-2">
+        <div class="dropdown">
+            <p href="#" class="text-dark" id="userMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="bi bi-person fs-3"></i>
+            </p>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                {% if request.user.is_authenticated %}
+                    <li><a class="dropdown-item" href="{% url 'user:user_profile' %}">Profile</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" style="cursor: pointer;"
+                           hx-post="{% url 'account_logout' %}"
+                           hx-confirm="{% translate 'Are you sure?' %}"
+                        >
+                            Log Out
+                        </a>
+                    </li>
+                {% else %}
+                    <li><a class="dropdown-item" href="{% url 'account_login' %}">Login</a></li>
+                    <li><a class="dropdown-item" href="{% url 'account_signup' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
         </div>
-      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 text-center"><a class="brand" href="{% url 'index' %}"><img class="default" src="{% static 'img/logo.svg' %}"><img class="white" src="{% static 'img/logo-white.svg' %}"></a>
+            <ul class="main-nav">
+                <li>
+                    <a {% if request.resolver_match.view_name == 'index' %}class="active"{% endif %} href="{% url 'index' %}" title="Work">Main</a>
+                </li>
+                <li>
+                    <a {% if request.resolver_match.namespace  == 'catalog' %}class="active"{% endif %} href="{% url 'catalog:index' %}" title="About">Catalog</a>
+                </li>
+                <li>
+                    <a href="contact.html" title="Contact">Filler</a>
+                </li>
+                <li>
+                    <a href="contact.html" title="Contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
     </div>
 </header>
