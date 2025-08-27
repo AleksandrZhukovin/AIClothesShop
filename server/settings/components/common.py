@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     "django_htmx",
     # django-colorfield https://github.com/fabiocaccamo/django-colorfield
     "colorfield",
+    # django-widget-tweaks https://pypi.org/project/django-widget-tweaks/
+    "widget_tweaks",
     "server.apps.manager",
     "server.apps.core",
     "server.apps.cover",
