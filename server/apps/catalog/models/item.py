@@ -37,3 +37,13 @@ class ItemImage(TimeStampedMixin):
 
     def __str__(self):
         return f"Item image | {self.item.name}"
+
+
+class ItemEditableImage(TimeStampedMixin):
+    item = models.ForeignKey(
+        "catalog.Item", on_delete=models.CASCADE, related_name="editable_images"
+    )
+    image = models.ImageField(upload_to="items/editables/")
+
+    def __str__(self):
+        return f"Item editable image | {self.item.name}"
