@@ -11,7 +11,7 @@ class UserGalleryManager:
 
     def authenticated_user_save_image(self, image: ContentFile) -> str:
         gallery_image = GalleryImage.objects.create(user=self.user, image=image)
-        return gallery_image.url
+        return gallery_image.image.url
 
     def unauthenticated_user_save_image(self, image: ContentFile) -> str:
         if not self.session:
