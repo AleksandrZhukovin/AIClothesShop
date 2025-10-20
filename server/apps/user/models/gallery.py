@@ -1,12 +1,10 @@
-import base64
+import os
 import uuid
 
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
-
-from server.apps.user.constants import SESSION_GALLERY_KEY
 
 
 class GalleryImage(models.Model):
@@ -16,26 +14,11 @@ class GalleryImage(models.Model):
     image = models.ImageField(upload_to="gallery_images/")
 
     @staticmethod
-    def unauthenticated_user_save(image_data, session) -> str | None:
-        if not isinstance(image_data, (list, tuple)) or not image_data:
-            return None
-
-        file_url = GalleryImage.save_image_to_media(image_data)
-
-        GalleryImage.get_session_gallery(session)
-        session[SESSION_GALLERY_KEY].append(file_url)
-        session.modified = True
-
-        return file_url
-
-    @staticmethod
-    def get_session_gallery(session) -> list[str]:
-        return session.setdefault(SESSION_GALLERY_KEY, [])
-
-    @staticmethod
-    def save_image_to_media(image_data) -> str:
-        image_base64 = image_data[0]
-        image_bytes = base64.b64decode(image_base64)
+    def save_image_to_media(image: ContentFile) -> str:
         filename = f"temp/{uuid.uuid4().hex}.png"
-        file_path = default_storage.save(filename, ContentFile(image_bytes))
+        file_path = default_storage.save(filename, image)
         return f"/media/{file_path}"
+
+    @staticmethod
+    def delete_image_from_media(image_url):
+        os.remove(image_url)
