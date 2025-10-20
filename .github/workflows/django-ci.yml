@@ -1,4 +1,4 @@
-name: Django CI (Poetry + Postgres)
+name: Django CI
 
 on:
   push:
@@ -26,11 +26,13 @@ jobs:
           --health-retries=5
 
     env:
-      DB_NAME: test_db
-      DB_USER: postgres
-      DB_PASSWORD: postgres
-      DB_HOST: localhost
-      DB_PORT: 5432
+      POSTGRES_DB: test_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST: localhost
+      POSTGRES_PORT: 5432
+      SECRET_KEY: test-secret-key-for-ci
+      DEBUG: False
 
     steps:
       - name: Checkout code
@@ -49,6 +51,10 @@ jobs:
       - name: Install dependencies
         run: |
           poetry install --no-root --no-interaction --no-ansi
+
+      - name: Run Django migrations
+        run: |
+          poetry run python manage.py migrate
 
       - name: Run Django tests
         run: |
