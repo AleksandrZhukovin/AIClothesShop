@@ -17,7 +17,9 @@ class UserGalleryManager:
         if not self.session:
             raise ValueError("Session required for an unauthenticated user.")
         image_url = GalleryImage.save_image_to_media(image)
-        SessionGalleryManager.add_image(self.session, image_url)
+
+        session_gallery_manager = SessionGalleryManager(self.session)
+        session_gallery_manager.add_image(image_url)
         return image_url
 
     def save_image(self, image: ContentFile) -> str:
