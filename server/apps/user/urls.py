@@ -6,7 +6,7 @@ from server.apps.user.logic.gallery import *
 app_name = "user"
 
 urlpatterns = [
-    path("profile/<int:profile_id>/", UserProfileView.as_view(), name="user_profile"),
+    path("profile/", UserProfileView.as_view(), name="user_profile"),
     path(
         "auth/gallery/",
         UserGalleryView.as_view(),
@@ -21,5 +21,10 @@ urlpatterns = [
         "gallery/image/<int:image_id>/delete/",
         GalleryImageDeleteView.as_view(),
         name="gallery_image_delete",
+    ),
+    path(
+        "gallery/session/image/<image_key>/delete/",
+        SessionGalleryImageDeleteView.as_view(),
+        name="session_gallery_image_delete",
     ),
 ]

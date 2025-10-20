@@ -7,13 +7,13 @@ class SessionGalleryManager:
         self.session = session
 
     def add_image(self, file_url):
-        gallery = self.session.setdefault(SESSION_GALLERY_KEY, [])
-        gallery.append(file_url)
+        gallery = self.session.setdefault(SESSION_GALLERY_KEY, {})
+        gallery[len(gallery)] = file_url
         self.session.modified = True
 
-    def delete_image(self, file_url):
-        self.session[SESSION_GALLERY_KEY].remove(file_url)
-        GalleryImage.delete_image_from_media(file_url)
+    def delete_image(self, key):
+        image_url = self.session[SESSION_GALLERY_KEY].pop(key)
+        GalleryImage.delete_image_from_media(image_url)
 
     def get_gallery(self):
-        return self.session.setdefault(SESSION_GALLERY_KEY, [])
+        return self.session.setdefault(SESSION_GALLERY_KEY, {})

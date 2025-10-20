@@ -21,4 +21,7 @@ class GalleryImage(models.Model):
 
     @staticmethod
     def delete_image_from_media(image_url):
-        os.remove(image_url)
+        path = image_url.replace(f"{default_storage.url('')}", "")
+
+        if default_storage.exists(path):
+            default_storage.delete(path)

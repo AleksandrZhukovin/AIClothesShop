@@ -1,3 +1,33 @@
-{% for image in gallery %}
-    <img src="{{ image }}">
-{% endfor %}
+{% load i18n %}
+
+<div class="container">
+  <div class="row g-3">
+    {% if gallery %}
+        {% for key, image in gallery.items %}
+          <div class="col-12 col-sm-6 col-md-4" id="imageCell{{ forloop.counter }}">
+            <div class="image-wrapper shadow rounded">
+              <img src="{{ image }}" alt="Gallery Image">
+              <div class="dropdown-wrapper">
+                <div class="dropdown">
+                  <button class="btn btn-sm btn-secondary dropdown-toggle p-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-three-dots"></i>
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-end">
+                    <li>
+                        <button class="dropdown-item text-danger"
+                           hx-post="{% url 'user:session_gallery_image_delete' key %}"
+                           hx-swap="delete"
+                           hx-target="#imageCell{{ forloop.counter }}"
+                        >Delete</button>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+    {% else %}
+        <h3>{% translate 'The gallery is empty' %}</h3>
+    {% endif %}
+  </div>
+</div>

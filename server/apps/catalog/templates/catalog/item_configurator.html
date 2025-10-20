@@ -6,7 +6,7 @@
 <div class="container-fluid">
   <div class="row d-flex flex-wrap">
       <div class="col-md-8 configurator-images">
-          {% for img in item.images.all %}
+          {% for img in item.editable_images.all %}
               <canvas
                   id="canvas{{ img.id }}"
                   class="main-canvas"
@@ -15,7 +15,7 @@
               ></canvas>
           {% endfor %}
           <div class="thumbnail-list-row d-flex justify-content-center mt-3">
-              {% for img in item.images.all %}
+              {% for img in item.editable_images.all %}
                   <div class="thumbnail-item-row mx-1 {% if forloop.first %}active{% endif %}"
                       onclick="showCanvas('canvas{{ img.id }}', this)"
                       style="cursor:pointer; width: 60px;">

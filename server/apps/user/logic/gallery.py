@@ -5,7 +5,12 @@ from server.apps.user.models import GalleryImage
 from server.apps.catalog.services.session_gallery import SessionGalleryManager
 
 
-__all__ = ("UserGalleryView", "SessionGalleryView", "GalleryImageDeleteView")
+__all__ = (
+    "UserGalleryView",
+    "SessionGalleryView",
+    "GalleryImageDeleteView",
+    "SessionGalleryImageDeleteView",
+)
 
 
 class AbstractGalleryView(ListView):
@@ -38,6 +43,6 @@ class GalleryImageDeleteView(DeleteView):
 
 class SessionGalleryImageDeleteView(View):
     def post(self, request, *args, **kwargs):
-        image_url = self.request.POST.get("image_url")
-        # GalleryImage.unauthenticated_user_delete(self.request.session, image_url)
+        session_gallery_manager = SessionGalleryManager(self.request.session)
+        session_gallery_manager.delete_image(self.kwargs["image_key"])
         return HttpResponse()
