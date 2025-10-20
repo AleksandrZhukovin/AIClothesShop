@@ -17,7 +17,7 @@ class GalleryImage(models.Model):
     def save_image_to_media(image: ContentFile) -> str:
         filename = f"temp/{uuid.uuid4().hex}.png"
         file_path = default_storage.save(filename, image)
-        return f"/media/{file_path}"
+        return default_storage.url(file_path)
 
     @staticmethod
     def delete_image_from_media(image_url):
